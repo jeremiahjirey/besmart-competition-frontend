@@ -5,11 +5,11 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "#" },
-    { name: "About", href: "#" },
-    { name: "Scheme", href: "#" },
-    { name: "Competitions", href: "#" },
-    { name: "FAQ", href: "#" },
+    { name: "Home", href: "#home" },
+    { name: "About", href: "#about" },
+    { name: "Scheme", href: "#scheme" },
+    { name: "Competitions", href: "#competitions" },
+    { name: "FAQ", href: "#faq" },
   ];
 
   return (
@@ -35,9 +35,12 @@ const Navbar = () => {
                 {link.name}
               </a>
             ))}
-            <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-2.5 rounded-full font-bold transition-all shadow-md active:scale-95">
+            <a
+              href="/auth"
+              className="w-full px-8 cursor-pointer bg-orange-500 text-white  py-3 rounded-full font-bold shadow-lg"
+            >
               Login
-            </button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -66,9 +69,12 @@ const Navbar = () => {
               </a>
             ))}
             <div className="pt-4">
-              <button className="w-full bg-orange-500 text-white px-4 py-3 rounded-full font-bold shadow-lg">
+              <a
+                href="/auth"
+                className="w-full cursor-pointer bg-orange-500 text-white px-8 py-3 rounded-full font-bold shadow-lg"
+              >
                 Login
-              </button>
+              </a>
             </div>
           </div>
         </div>

@@ -11,7 +11,7 @@ interface TimeLeft {
 
 const Hero = () => {
   const countdown = (): TimeLeft => {
-    const targetDate = "2026-03-03";
+    const targetDate = "2026-03-10";
     const difference = new Date(targetDate).getTime() - new Date().getTime();
     let timeLeft: TimeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
@@ -32,25 +32,37 @@ const Hero = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft(countdown());
-      console.log(timeLeft);
     }, 1000);
 
     return () => clearInterval(timer);
   }, [timeLeft]);
 
   return (
-    <div className="mx-auto max-w-5xl px-4  lg:py-5 sm:px-6 lg:px-8 text-center">
+    <div
+      id="home"
+      className="mx-auto max-w-5xl px-4  lg:py-5 sm:px-6 lg:px-8 text-center"
+    >
       <div className="flex flex-col items-center gap-12">
         <div className="space-y-0">
-          <h1 className="text-6xl font-black leading-[0.9] tracking-tight text-slate-900 dark:text-white lg:text-8xl">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="text-6xl font-black leading-[0.9] tracking-tight text-slate-900 dark:text-white lg:text-8xl"
+          >
             Showcase Your <br />
             <span className="text-[#E9A218]">Excellence</span> to the World
-          </h1>
-          <p className="mx-auto max-w-2xl text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            className="mx-auto max-w-2xl text-sm leading-relaxed text-slate-600 dark:text-slate-400"
+          >
             The ultimate stage for innovators and creators. Register now to
             secure your spot in the most anticipated global competition of the
             year.
-          </p>
+          </motion.p>
         </div>
 
         {/* Countdown */}
@@ -130,12 +142,27 @@ const Hero = () => {
 
         {/* Button */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full sm:w-auto">
-          <button className="w-full sm:w-auto cursor-pointer rounded-2xl bg-[#E9A218] px-12 py-5 text-xl tracking-wide font-black text-white shadow-2xl shadow-primary/40 hover:-translate-y-1 hover:brightness-110 transition-all active:scale-95">
-            Register Now
-          </button>
-          <button className="w-full sm:w-auto cursor-pointer rounded-2xl border-2 border-slate-200 tracking-wide dark:border-slate-800 bg-white dark:bg-slate-900 px-12 py-5 text-xl font-black text-slate-900 dark:text-white hover:border-primary/30 transition-all">
-            View Schedule
-          </button>
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <a href="/auth">
+              <button className="w-full sm:w-auto cursor-pointer rounded-2xl bg-primary px-12 py-5 text-xl tracking-wide font-black text-white shadow-2xl shadow-primary/40 hover:-translate-y-1 hover:brightness-110 transition-all active:scale-95">
+                Register Now
+              </button>
+            </a>
+          </motion.button>
+
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <button className="w-full sm:w-auto cursor-pointer rounded-2xl border-2 border-slate-200 tracking-wide dark:border-slate-800 bg-white dark:bg-slate-900 px-12 py-5 text-xl font-black text-slate-900 dark:text-white hover:border-primary/30 transition-all">
+              View Schedule
+            </button>
+          </motion.button>
         </div>
       </div>
     </div>

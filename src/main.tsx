@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import App from "./App.tsx";
 import AuthenticationPage from "./pages/AuthenticationPage.tsx";
+import AdminDashboardPage from "./pages/Admin/AdminDashboardPage.tsx";
+import ParticipantDashboardPage from "./pages/Participans/ParticipantDashboardPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +13,8 @@ const router = createBrowserRouter([
     element: <App />,
   },
   { path: "/auth", element: <AuthenticationPage /> },
+  { path: "/dashboard", element: <ParticipantDashboardPage /> },
+  { path: "/admin/dashboard", element: <AdminDashboardPage /> },
 ]);
 
 createRoot(document.getElementById("root")!).render(

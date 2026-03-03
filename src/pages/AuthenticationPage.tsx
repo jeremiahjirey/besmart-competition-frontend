@@ -203,7 +203,7 @@ const AuthenticationPage = () => {
                   <div className="grid grid-cols-2 gap-3">
                     <div className="space-y-2">
                       <Label className="text-xs font-bold uppercase text-muted-foreground">
-                        Nama Lengkap
+                        Full Name
                       </Label>
                       <div className="relative">
                         <User className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -226,7 +226,7 @@ const AuthenticationPage = () => {
 
                   <div className="space-y-2">
                     <Label className="text-xs font-bold uppercase text-muted-foreground">
-                      Asal Sekolah
+                      School Origin
                     </Label>
                     <div className="relative">
                       <School className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -240,7 +240,7 @@ const AuthenticationPage = () => {
                   <div className="grid grid-cols-2 gap-3">
                     <div className="space-y-2">
                       <Label className="text-xs font-bold uppercase text-muted-foreground">
-                        Jurusan
+                        Major
                       </Label>
                       <Select>
                         <SelectTrigger className="h-11 bg-muted/30">
@@ -265,7 +265,7 @@ const AuthenticationPage = () => {
 
                     <div className="space-y-2">
                       <Label className="text-xs font-bold uppercase text-muted-foreground">
-                        Kelas
+                        Grade Level
                       </Label>
                       <Select>
                         <SelectTrigger className="h-11 bg-muted/30">
@@ -312,7 +312,7 @@ const AuthenticationPage = () => {
                     variant="link"
                     className="px-0 h-auto text-xs font-bold text-primary"
                   >
-                    Lupa Password?
+                    Forgot Password?
                   </Button>
                 )}
               </div>

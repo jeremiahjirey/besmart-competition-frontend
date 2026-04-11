@@ -12,12 +12,14 @@ function App() {
   return (
     <main>
       <Navbar />
-      <Hero />
-      <PrizePool />
-      <About />
-      <Scheme />
-      <Competitions />
-      <FAQ />
+      <section className="mt-24">
+        <Hero />
+        <PrizePool />
+        <About />
+        <Scheme />
+        <Competitions />
+        <FAQ />
+      </section>
       <Footer />
     </main>
   );

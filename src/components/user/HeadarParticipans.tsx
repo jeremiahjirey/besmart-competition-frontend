@@ -1,6 +1,3 @@
-// import { Bell } from "lucide-react";
-// import { Button } from "@/components/ui/button";
-
 const HeaderParticipans = () => {
   return (
     <div className="mb-10 flex items-start justify-between">

@@ -13,8 +13,8 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="bg-white border-b border-gray-100 fixed top-0 right-0 left-0 z-50 ">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-40">
         <div className="flex justify-between items-center h-20">
           {/* Logo Section */}
           <div className="flex items-center gap-2">
@@ -57,7 +57,7 @@ const Navbar = () => {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 animate-in slide-in-from-top duration-300">
+        <div className="md:hidden bg-white border-t border-gray-100 animate-in slide-in-from-top duration-200 h-screen no-scrollbar z-0">
           <div className="px-4 pt-2 pb-6 space-y-1 sm:px-3">
             {navLinks.map((link) => (
               <a

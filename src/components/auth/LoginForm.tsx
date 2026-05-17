@@ -1,7 +1,9 @@
+import axiosInstance from "@/api/axiosInstance";
+import { z } from "zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Lock, MoveRight, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -23,6 +25,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -32,9 +35,16 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data: LoginFormValues) => {
-    console.log("Data Login:", data);
-    alert("Berhasil memvalidasi data Login. Cek console!");
+  const onSubmit = async (data: LoginFormValues) => {
+    try {
+      const res = await axiosInstance.post("/login", data);
+      const token = res.data.data.access_token;
+      localStorage.setItem("token", token);
+
+      navigate("/dashboard");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

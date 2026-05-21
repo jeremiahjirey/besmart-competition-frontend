@@ -1,6 +1,8 @@
 name: Application With Nginx System
 on:
-  pull_request
+  pull_request:
+    branches:
+      - dev
   # push:
   #   branches: ["main"]
   # paths:

@@ -1,10 +1,10 @@
 name: Application With Nginx System
 on:
-  # pull_request:
-  #   branches:
-  #     - main
-  push:
-    branches: ["main"]
+  pull_request:
+    branches:
+      - main
+  # push:
+  #   branches: ["main"]
   # paths:
   #   - ".github/workflows/vps-prod.yaml"
   #   - "docker/Dockerfile"
@@ -54,6 +54,8 @@ jobs:
 
       - name: Secret Scan
         uses: gitleaks/gitleaks-action@v2 # Scan protected file
+        with:
+          github-token: ${{ secrets.LEAK_TOKEN }}
 
       - name: Dependency Scan
         run: npm audit --omit=dev --audit-level=high # scan dependency in production stage

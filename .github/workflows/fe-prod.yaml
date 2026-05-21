@@ -1,10 +1,10 @@
 name: Application With Nginx System
 on:
-  pull_request:
-    branches:
-      - main
-  # push:
-  #   branches: ["main"]
+  # pull_request:
+  #   branches:
+  #     - main
+  push:
+    branches: ["main"]
   # paths:
   #   - ".github/workflows/vps-prod.yaml"
   #   - "docker/Dockerfile"

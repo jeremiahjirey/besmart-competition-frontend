@@ -34,7 +34,8 @@ jobs:
     needs: setup-project
     runs-on: ubuntu-latest
     permissions:
-      # contents: write
+      contents: read
+      pull-requests: read
 
     steps:
       - name: Checkout repository
@@ -54,10 +55,8 @@ jobs:
 
       - name: Secret Scan
         uses: gitleaks/gitleaks-action@v2 # Scan protected file
-        with:
+        env:
           github-token: ${{ secrets.GITHUB_TOKEN_TOKEN }}
-          contents: read
-          pull-requests: read
 
       - name: Dependency Scan
         run: npm audit --omit=dev --audit-level=high # scan dependency in production stage

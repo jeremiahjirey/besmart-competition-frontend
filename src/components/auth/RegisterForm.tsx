@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
 import { User, Mail, Lock, Eye, EyeOff, MoveRight } from "lucide-react";
+import { signUpFieldsVariants } from "@/lib/variants";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,15 +24,6 @@ const registerSchema = z.object({
 });
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
-
-const signUpFieldsVariants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, staggerChildren: 0.05 },
-  },
-};
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -106,7 +98,7 @@ const RegisterForm = () => {
 
       <div className="space-y-2">
         <Label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
-          Kata Sandi
+          Password
         </Label>
         <div className="relative">
           <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -139,7 +131,11 @@ const RegisterForm = () => {
 
       <div className="space-y-2">
         <Label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
+<<<<<<< HEAD
           Konfirmasi Kata Sandi
+=======
+          Password Confirmation
+>>>>>>> 9e2420ccb3f39cdbee001f1e1393770f7df19178
         </Label>
         <div className="relative">
           <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -147,7 +143,11 @@ const RegisterForm = () => {
             {...register("password_confirmation")}
             placeholder="••••••••"
             type={showConfirmPassword ? "text" : "password"}
+<<<<<<< HEAD
             className={`pl-10 pr-10 h-11 bg-muted/30 ${errors.password ? "border-red-500" : ""}`}
+=======
+            className={`pl-10 pr-10 h-11 bg-muted/30 ${errors.password_confirmation ? "border-red-500" : ""}`}
+>>>>>>> 9e2420ccb3f39cdbee001f1e1393770f7df19178
           />
           <Button
             variant="ghost"
@@ -163,9 +163,15 @@ const RegisterForm = () => {
             )}
           </Button>
         </div>
+<<<<<<< HEAD
         {errors.password && (
           <p className="text-xs text-red-500 font-medium">
             {errors.password.message}
+=======
+        {errors.password_confirmation && (
+          <p className="text-xs text-red-500 font-medium">
+            {errors.password_confirmation.message}
+>>>>>>> 9e2420ccb3f39cdbee001f1e1393770f7df19178
           </p>
         )}
       </div>

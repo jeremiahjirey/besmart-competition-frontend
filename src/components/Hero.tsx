@@ -11,7 +11,7 @@ interface TimeLeft {
 
 const Hero = () => {
   const countdown = (): TimeLeft => {
-    const targetDate = "2026-04-15";
+    const targetDate = "2026-05-15";
     const difference = new Date(targetDate).getTime() - new Date().getTime();
     let timeLeft: TimeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
 

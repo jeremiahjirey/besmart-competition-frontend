@@ -3,8 +3,12 @@ import { useState, useEffect } from "react";
 import SidebarParticipans from "@/components/user/SidebarParticipans";
 import HeaderParticipans from "@/components/user/HeadarParticipans";
 import { CompetitionCard } from "@/components/user/CompetitionCard";
+<<<<<<< HEAD
 
 import { Trophy, CreditCard, Loader2, Upload } from "lucide-react";
+=======
+import { Trophy, Calendar, Users, CreditCard, Loader2 } from "lucide-react";
+>>>>>>> 9e2420ccb3f39cdbee001f1e1393770f7df19178
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,8 +19,13 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import axiosInstance from "@/api/axiosInstance";
+<<<<<<< HEAD
 import { toast } from "sonner"; //
 
+=======
+
+// Interface untuk data kompetisi agar TypeScript tidak komplain
+>>>>>>> 9e2420ccb3f39cdbee001f1e1393770f7df19178
 interface Competition {
   id: number;
   title: string;
@@ -31,6 +40,7 @@ interface Competition {
 }
 
 const ParticipantDashboardPage = () => {
+<<<<<<< HEAD
   const [competitions, setCompetitions] = useState<Competition[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -140,6 +150,67 @@ const ParticipantDashboardPage = () => {
     } finally {
       setIsRegistering(false);
     }
+=======
+  // Data lomba yang tersedia di sistem
+  const [competitions, setCompetitions] = useState<Competition[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // State untuk mengontrol Modal Dialog Shadcn
+  const [selectedComp, setSelectedComp] = useState<Competition | null>(null);
+
+  useEffect(() => {
+    const fetchCompetitions = async () => {
+      try {
+        const response = await axiosInstance.get(
+          "http://127.0.0.1:8000/api/events",
+        );
+
+        const result = response.data;
+        const dataFromApi = result.data ? result.data : result;
+
+        const formattedData = dataFromApi.map((item: any) => ({
+          ...item,
+          isRegistered: false,
+        }));
+
+        setCompetitions(formattedData);
+      } catch (err: any) {
+        setError(err.message || "Terjadi kesalahan pada server");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCompetitions();
+  }, []);
+
+  const formatRupiah = (amount: number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    }).format(amount);
+  };
+
+  const handleOpenModal = (id: number) => {
+    const comp = competitions.find((c) => c.id === id);
+    if (comp) setSelectedComp(comp);
+  };
+
+  // Fungsi konfirmasi pendaftaran di dalam Modal
+  const handleConfirmRegister = () => {
+    if (!selectedComp) return;
+
+    setCompetitions((prev) =>
+      prev.map((comp) =>
+        // Perbaikan: Ubah state isRegistered menjadi true, bukan is_open
+        comp.id === selectedComp.id ? { ...comp, isRegistered: true } : comp,
+      ),
+    );
+
+    setSelectedComp(null);
+>>>>>>> 9e2420ccb3f39cdbee001f1e1393770f7df19178
   };
 
   return (
@@ -171,7 +242,12 @@ const ParticipantDashboardPage = () => {
             </div>
           ) : error ? (
             <div className="bg-red-50 text-red-600 p-4 rounded-lg border border-red-100 font-medium">
+<<<<<<< HEAD
               Oopss! {error}. Pastikan server backend Laravel berjalan.
+=======
+              Oopss! {error}. Pastikan server backend Laravel (localhost:8000)
+              sudah berjalan.
+>>>>>>> 9e2420ccb3f39cdbee001f1e1393770f7df19178
             </div>
           ) : competitions.length === 0 ? (
             <div className="text-center py-20 text-slate-400">
@@ -191,6 +267,7 @@ const ParticipantDashboardPage = () => {
         </div>
       </main>
 
+<<<<<<< HEAD
       <Dialog
         open={!!selectedComp}
         onOpenChange={(isOpen) => {
@@ -312,6 +389,74 @@ const ParticipantDashboardPage = () => {
                     <Loader2 className="w-4 h-4 animate-spin" />
                   )}
                   {isRegistering ? "Mengirim..." : "Kirim Pendaftaran"}
+=======
+      {/* MODAL DETAIL & KONFIRMASI (SHADCN DIALOG) */}
+      <Dialog
+        open={!!selectedComp}
+        onOpenChange={(isOpen) => {
+          if (!isOpen) setSelectedComp(null);
+        }}
+      >
+        <DialogContent className="sm:max-w-125">
+          {selectedComp && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-black mb-2">
+                  {selectedComp.title}
+                </DialogTitle>
+                <DialogDescription className="text-slate-500">
+                  {selectedComp.description}
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="bg-slate-50 p-4 rounded-lg my-4 space-y-3 border border-slate-100">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="flex items-center gap-2 text-slate-500">
+                    <Calendar size={16} className="text-[#E9A218]" /> Tanggal
+                    Pelaksanaan
+                  </span>
+                  <span className="font-bold text-slate-900">
+                    {selectedComp.event_date}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="flex items-center gap-2 text-slate-500">
+                    <Users size={16} className="text-[#E9A218]" /> Kuota
+                    Maksimal
+                  </span>
+                  <span className="font-bold text-slate-900">
+                    {selectedComp.max_teams} Tim
+                  </span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="flex items-center gap-2 text-slate-500">
+                    <CreditCard size={16} className="text-[#E9A218]" /> Biaya
+                    Pendaftaran
+                  </span>
+                  <span className="font-bold text-slate-900">
+                    {selectedComp.price === 0
+                      ? "Gratis"
+                      : formatRupiah(selectedComp.price)}
+                  </span>
+                </div>
+                <div className="pt-3 mt-3 border-t border-slate-200">
+                  <p className="text-xs text-red-500 font-medium">
+                    * Pendaftaran ditutup pada:{" "}
+                    {selectedComp.registration_deadline}
+                  </p>
+                </div>
+              </div>
+
+              <DialogFooter className="gap-2 sm:gap-0">
+                <Button variant="outline" onClick={() => setSelectedComp(null)}>
+                  Batal
+                </Button>
+                <Button
+                  className="bg-[#E9A218] hover:bg-[#E9A218]/90 text-white"
+                  onClick={handleConfirmRegister}
+                >
+                  Konfirmasi Pendaftaran
+>>>>>>> 9e2420ccb3f39cdbee001f1e1393770f7df19178
                 </Button>
               </DialogFooter>
             </>

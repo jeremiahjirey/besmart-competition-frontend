@@ -1,4 +1,4 @@
-name: Application With Nginx Systems
+name: Application With Nginx System
 on:
   pull_request:
     branches:

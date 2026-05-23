@@ -1,0 +1,115 @@
+name: Application With Nginx System
+on:
+  pull_request:
+    branches:
+      - dev
+  # push:
+  #   branches: ["main"]
+  # paths:
+  #   - ".github/workflows/vps-prod.yaml"
+  #   - "docker/Dockerfile"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    name: Build Application and Send to VPS
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install Depedencies
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Build project
+        run: npm run build
+
+      - name: Clean VPS directory
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 2233
+          script: |
+            rm -rf /var/www/lab-devops3-fe-jerr/*
+
+      - name: Copy build to VPS
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 2233
+          source: "dist/*" #output after build
+          target: "/var/www/lab-devops3-fe-jerr/"
+
+      # - name: Deploy project over SSH
+      #   uses: appleboy/ssh-action@v1
+      #   with:
+      #     host: ${{ secrets.SSH_HOST }}
+      #     username: ${{ secrets.SSH_USERNAME }}
+      #     password: ${{ secrets.SSH_PASSWORD }}
+      #     port: ${{ secrets.SSH_PORT }}
+      #     script: |
+      #       ln -s /etc/nginx/sites-available/lab-devops3-fe-jerr.org /etc/nginx/sites-enabled/
+
+# name: Deploy Laravel to VPS.
+
+# on:
+#   pull_request
+#   # push:
+#   #   branches:
+#   #     - main
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Deploy via SSH
+#         uses: appleboy/ssh-action@v1.0.3
+#         with:
+#           host: ${{ secrets.HOST }}
+#           username: ${{ secrets.USERNAME }}
+#           key: ${{ secrets.SSH_KEY }}
+#           port: 2233
+#           script: |
+#             set -e
+
+#              APP_DIR="/var/www/lab-devops3-fe-jerr"
+#              REPO_URL="git@github-jeremi:${{ secrets.GIT_USERNAME}}/${{ secrets.GIT_REPO}}.git"
+
+#              echo "Check if project exists..."
+
+#              if [ ! -d "$APP_DIR/.git" ]; then
+#                echo "Repo not found → cloning..."
+#                git clone "$REPO_URL" "$APP_DIR"
+#              else
+#                echo "Repo exists → pulling latest code..."
+#                git -C "$APP_DIR" pull origin main
+#              fi
+
+#              cd "$APP_DIR"
+
+#              echo "Install dependencies..."
+#              npm install
+
+#              echo "Build project..."
+#              npm run build
+
+#              echo "Restart / serve app..."
+#              npm run prod
